@@ -12,7 +12,7 @@ function App() {
       </div>
       <div className="row">
         <div className="col">
-          <Posts posts={[1,2,3,4]}/>
+          <Posts />
         </div>
         <div className="col">
           <p>Async posts</p>

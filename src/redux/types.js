@@ -1,0 +1,2 @@
+export const CTREATE_POST = 'CREATE_POST';
+export const CREATE_FETCHED_POST = 'CREATE_FETCHED_POST';
