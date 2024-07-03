@@ -38,3 +38,10 @@
     - we can notice that reducer will be pure function, because it works only with it's params, works without any side effects. All effects we will code in generator of action. In this case it will return function instead of object. This function will get dispatch as it's param. Inside this returned function we can make some requests to server (placeholder in our case) and call dispatch with correct action
     - Then we can connect our component for fetched posts with our store. We should make new mapStateToProps, then call connect API with this mapStateToProps. 
     - Also we want to show async posts after clicking on the button load. That's why we should create onClickHandler and inside it we should call dispatch(), and as argument to dispatch we should give action fetchPost(). - This is how work applyMidlware and thunk in redux - we create new generator of action, which will return function instead of object, and then somewhere in our component we will call dispatch(), and as an argument we should give him this generator and call him inside of dispatch, for example dispatch(fetchPosts()). - It is a simple work with one action of loading without spinners, while data will be loading. 
+
+6. Now we will make the same logic but with the help of hooks.
+
+    - We create new component of view for fetched posts with hooks
+    - use indide useDispatch to get dispatch method
+    - use useSelector to get posts from store
+    - added onClickHandler, where also call dispatch(), and as a argument we give him generator of action, which return async function, where we make all fetching of data from server

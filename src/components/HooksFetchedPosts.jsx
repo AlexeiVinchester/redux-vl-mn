@@ -1,13 +1,21 @@
 import React from "react";
 import Post from "./Post";
+import { useDispatch, useSelector } from "react-redux";
+import { hooksFetchPost } from "../redux/actions";
 
 
-const HookFetchedPosts = ({ fetchedPosts}) => {
+const HookFetchedPosts = () => {
     
-    if (!fetchedPosts.length) {
-        return <button className="btn btn-primary">Load</button>
+    const dispatch = useDispatch();
+    const hooksFetchedPosts = useSelector((state) => state.hooksFetchPosts)
+    const onClickHandle = () => {
+        dispatch(hooksFetchPost());
     }
-    return fetchedPosts.map(post => <Post post={post} key={post.id}/>)
+
+    if (!hooksFetchedPosts.length) {
+        return <button onClick={onClickHandle} className="btn btn-primary">Load</button>
+    }
+    return hooksFetchedPosts.map(post => <Post post={post} key={post.id}/>)
 };
 
 export default HookFetchedPosts;

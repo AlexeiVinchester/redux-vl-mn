@@ -15,14 +15,14 @@ function App() {
         <div className="col">
           <Posts />
         </div>
-        <div className="col">
+      </div>
+      <div className="row">
           <p>Async posts</p>
           <FetchedPosts />
-        </div>
       </div>
       <div className="row">
         <p>Async posts with hooks</p>
-        <HookFetchedPosts fetchedPosts = {[]}/>
+        <HookFetchedPosts />
       </div>
     </div>
   );
