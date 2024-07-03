@@ -1,70 +1,40 @@
-# Getting Started with Create React App
+1. We want to add some features on our page
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+    - form for ability to add some post
+    - component for rendering sync posts
+    - component for rendering async posts
 
-## Available Scripts
+2. At first we add some redux features:
 
-In the project directory, you can run:
+    - our store will consist of two fields:
+        - posts: array of sync posts
+        - fetchedPosts: array of async posts
+        - each post will be an object with two fields: 
+            - title
+            - id
+    - created type for action with sync posts: CREATE_POST with prefics POST/       CREATE_POST
+    - generator of action for sync posts - CREATE_POST
+    - we add reducer: 
+        - postsReducer - will return array of posts
+    - create root reducer with the help if combineReducers({}), we give him
+      an object which will have ышьзду reducers as it's fields
 
-### `npm start`
+3. Now we will add components of view:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+    - We should render two arrays of posts. As we know, components of view don't have ability to work with redux store. That's why we will make them as components of view, they will get this arrays as props. Then we will wrap this component and with the help of connect() API we will give them there props.
+    At first we will make it for <Posts >
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+4. In our <PostForm > we will use class Component
 
-### `npm test`
+    - This component will save it's state as object {title}    
+    - We will add handler method for changing of input value and will save this value to state with the help of this.setState(), where we can send func (prev) => ... , because we want to work with previous values of state.
+    - Also add submit handler, where we will create new post and with the help of dispatch(createPost(newPost)) we will change our store. 
+    - we can provide dispatch method to this form with the help of connect, 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+5. Now we should work with async posts
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+    - Now we will add new types for work with async posts with prefics APP/
+    - Also for this fetched posts we will create new reducer, which will return array of async fetched posts, and then with combineReducer we will add this fetchedReducer to root reducer
+    - we can notice that reducer will be pure function, because it works only with it's params, works without any side effects. All effects we will code in generator of action. In this case it will return function instead of object. This function will get dispatch as it's param. Inside this returned function we can make some requests to server (placeholder in our case) and call dispatch with correct action
+    - Then we can connect our component for fetched posts with our store. We should make new mapStateToProps, then call connect API with this mapStateToProps. 
+    - Also we want to show async posts after clicking on the button load. That's why we should create onClickHandler and inside it we should call dispatch(), and as argument to dispatch we should give action fetchPost(). - This is how work applyMidlware and thunk in redux - we create new generator of action, which will return function instead of object, and then somewhere in our component we will call dispatch(), and as an argument we should give him this generator and call him inside of dispatch, for example dispatch(fetchPosts()). - It is a simple work with one action of loading without spinners, while data will be loading. 

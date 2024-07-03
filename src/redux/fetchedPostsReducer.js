@@ -5,7 +5,8 @@ const fetchedPostsReducer = (state = [], action) => {
         default: 
             return state;
         case CREATE_FETCHED_POST: 
-            return []
+            return action.payload
+            
     }
 }
 

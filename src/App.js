@@ -1,4 +1,5 @@
 import FetchedPosts from "./components/FetchedPosts";
+import HookFetchedPosts from "./components/HooksFetchedPosts";
 import PostForm from "./components/PostForm";
 import Posts from "./components/Posts";
 
@@ -16,8 +17,12 @@ function App() {
         </div>
         <div className="col">
           <p>Async posts</p>
-          <FetchedPosts posts={[]}/>
+          <FetchedPosts />
         </div>
+      </div>
+      <div className="row">
+        <p>Async posts with hooks</p>
+        <HookFetchedPosts fetchedPosts = {[]}/>
       </div>
     </div>
   );

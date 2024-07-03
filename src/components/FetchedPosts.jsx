@@ -1,10 +1,23 @@
 import React from "react";
 import Post from "./Post";
-const FetchedPosts = ({ posts }) => {
-    if (!posts.length) {
-        return <button className="btn btn-primary">Load</button>
+import { connect } from "react-redux";
+import { fetchPost } from "../redux/actions";
+
+const mapStateToProps = (store) => {
+    return {
+        fetchedPosts: store.fetchedPosts
     }
-    return posts.map(post => <Post post={post} key={post}/>)
+}
+
+const FetchedPosts = ({ fetchedPosts, dispatch }) => {
+    const onClickHandler = () => {
+        console.log('Load button was clicked');
+        dispatch(fetchPost())
+    }
+    if (!fetchedPosts.length) {
+        return <button onClick={onClickHandler} className="btn btn-primary">Load</button>
+    }
+    return fetchedPosts.map(post => <Post post={post} key={post.id}/>)
 };
 
-export default FetchedPosts;
+export default connect(mapStateToProps)(FetchedPosts);

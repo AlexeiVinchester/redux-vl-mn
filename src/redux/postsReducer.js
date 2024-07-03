@@ -1,4 +1,4 @@
-import { CTREATE_POST } from "./types";
+import { CTREATE_POST} from "./types";
 
 const postsReducer = (state = [], action) => {
     switch (action.type) {
@@ -6,7 +6,7 @@ const postsReducer = (state = [], action) => {
             return [
                 ...state,
                 action.payload
-            ]
+            ];
         default:
             return state;
     }

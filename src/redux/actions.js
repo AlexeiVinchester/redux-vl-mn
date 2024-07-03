@@ -1,4 +1,4 @@
-import { CTREATE_POST } from "./types"
+import { CREATE_FETCHED_POST, CTREATE_POST } from "./types"
 
 const createPost = (post) => {
     return {
@@ -7,4 +7,16 @@ const createPost = (post) => {
     }
 }
 
-export {createPost}
+const fetchPost = () => {
+    return async (dispatch) => {
+        const response = await fetch('https://jsonplaceholder.typicode.com/posts?_limit=5');
+        const json = await response.json();
+        console.log(json)
+        dispatch({
+            type: CREATE_FETCHED_POST,
+            payload: json
+        })
+    }
+}
+
+export {createPost, fetchPost}
