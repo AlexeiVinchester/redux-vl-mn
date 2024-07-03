@@ -45,3 +45,11 @@
     - use indide useDispatch to get dispatch method
     - use useSelector to get posts from store
     - added onClickHandler, where also call dispatch(), and as a argument we give him generator of action, which return async function, where we make all fetching of data from server
+
+7. Now we should add loading spinner for waiting of data
+
+    - To realise this idea we need to add new field in our store: loading. It will be an object with field loading with bool type of value
+    - Thats why we create new reducer, that will return an object with correct value of loading depending on action type
+    - then we should create actions for each step: for show loader and for hide loader
+    - And now we should dispatch this actions inside action of tetching data
+    - And now in component of fetched posts with hooks we shoul get value loadding from store and check it: if it's true, we will return spinner, if it's false, we return loaded data

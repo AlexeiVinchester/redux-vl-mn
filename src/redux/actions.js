@@ -1,4 +1,5 @@
-import { CREATE_FETCHED_POST, CTREATE_POST, CREATE_HOOKS_FETCHED_POST } from "./types"
+import { type } from "@testing-library/user-event/dist/type"
+import { CREATE_FETCHED_POST, CTREATE_POST, CREATE_HOOKS_FETCHED_POST, SHOW_LOADER, HIDE_LOADER } from "./types"
 
 const createPost = (post) => {
     return {
@@ -18,15 +19,38 @@ const fetchPost = () => {
     }
 }
 
+const showLoader = () => {
+    return {
+        type: SHOW_LOADER
+    };
+}
+
+const hideLoader = () => {
+    return {
+        type: HIDE_LOADER
+    }
+}
+
+
 const hooksFetchPost = () => {
     return async (dispatch) => {
+        dispatch(showLoader());
         const response = await fetch('https://jsonplaceholder.typicode.com/posts?_limit=5');
         const json = await response.json();
         dispatch({
             type: CREATE_HOOKS_FETCHED_POST,
             payload: json
-        })
+        });
+        dispatch(hideLoader());
+
     }
 }
 
-export {createPost, fetchPost, hooksFetchPost}
+
+export {
+    createPost, 
+    fetchPost, 
+    hooksFetchPost,
+    showLoader,
+    hideLoader
+}

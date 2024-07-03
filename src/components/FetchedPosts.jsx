@@ -10,10 +10,12 @@ const mapStateToProps = (store) => {
 }
 
 const FetchedPosts = ({ fetchedPosts, dispatch }) => {
+
     const onClickHandler = () => {
         console.log('Load button was clicked');
         dispatch(fetchPost())
     }
+
     if (!fetchedPosts.length) {
         return <button onClick={onClickHandler} className="btn btn-primary">Load</button>
     }
