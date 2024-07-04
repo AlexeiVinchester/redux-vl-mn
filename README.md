@@ -65,3 +65,9 @@
     - we can get this value from store with useSelector() or in mapStateToProps
     - to create new component for error message
     - to show this message in component if it has true value
+
+9. Also we can add custom middleware for filtration
+    - we want to filter title which shouldn't has any of fobidden words
+    - this function will be called after diapstch and before reducer
+    - we create middleware
+    - add it to applyMiddleWare in index js as second argument
