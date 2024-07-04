@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import { createPost } from "../redux/actions";
+import { createPost, errorLoader } from "../redux/actions";
+import { ErrorLoader } from "./ErrorLoader";
 class PostForm extends React.Component {
     constructor(props) {
         super(props);
@@ -16,10 +17,10 @@ class PostForm extends React.Component {
             title: this.state.title,
             id: Date.now().toString()
         }
-        if(newPost.title.trim().length) {
-            this.props.dispatch(createPost(newPost));
+        if(!newPost.title.trim()) {
+            return this.props.errorLoader('You are trying to enter empty title!')
         }
-        
+        this.props.createPost(newPost);
         this.setState({title: ''});
         
     }
@@ -34,6 +35,9 @@ class PostForm extends React.Component {
     render() {
         return (
             <form onSubmit={this.submitHandler}>
+                {
+                    this.props.errorValue && <ErrorLoader text={this.props.errorValue} />
+                }
                 <div className="mb-3">
                     <label htmlFor="title" className="form-label">Post header</label>
                     <input 
@@ -51,5 +55,14 @@ class PostForm extends React.Component {
     }
 }
 
+const mapDispatchToProps = {
+    createPost, errorLoader
+};
 
-export default connect()(PostForm)
+const mapStateToProps = (state) => {
+    return {
+        errorValue: state.error.error
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostForm)

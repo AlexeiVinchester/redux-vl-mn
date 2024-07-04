@@ -53,3 +53,15 @@
     - then we should create actions for each step: for show loader and for hide loader
     - And now we should dispatch this actions inside action of tetching data
     - And now in component of fetched posts with hooks we shoul get value loadding from store and check it: if it's true, we will return spinner, if it's false, we return loaded data
+
+8. The next step is to show message if we have some error while loading data from website. 
+
+    - create new types: ERROR_LOADER and HIDE_LOADER
+    - create new actions for ERROR_LOADER and HIDE_LOADER
+        - errorLoader(text) will get string of information about error
+        - it will return function, because we want to add some async functionality to it: we want to hide error message in 3 sec
+    - create new reducer for returning object {error: null or text}
+    - to add this reducer to rootReducer
+    - we can get this value from store with useSelector() or in mapStateToProps
+    - to create new component for error message
+    - to show this message in component if it has true value
