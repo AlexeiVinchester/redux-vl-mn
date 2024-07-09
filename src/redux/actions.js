@@ -37,19 +37,19 @@ const hideLoader = () => {
     }
 }
 
-const errorLoader = (text) => {
+const showErrorMessage = (text) => {
     return (dispatch) => {
         dispatch({
             type: ERROR_LOADER,
             payload: text
         });
-        setTimeout(() => dispatch(hideError()), 3000)
+        setTimeout(() => dispatch(hideErrorMessage()), 3000)
     }
     
     
 }
 
-const hideError = () => {
+const hideErrorMessage = () => {
     return {
         type: ERROR_HIDE
     }
@@ -72,7 +72,7 @@ const hooksFetchPost = () => {
             
             
         } catch (error) {
-            dispatch(errorLoader(`Name: ${error.name}, messaage: ${error.message}`));
+            dispatch(showErrorMessage(`Name: ${error.name}, messaage: ${error.message}`));
             dispatch(hideLoader());
         }
     }
@@ -84,6 +84,6 @@ export {
     hooksFetchPost,
     showLoader,
     hideLoader,
-    hideError,
-    errorLoader
+    hideErrorMessage as hideError,
+    showErrorMessage as errorLoader
 }
